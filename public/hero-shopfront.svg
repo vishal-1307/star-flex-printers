@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-label="Star Flex Printers shopfront photo placeholder">
+  <rect width="800" height="640" fill="#f1ece3"/>
+  <defs>
+    <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#1c1917" opacity="0.08"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="640" fill="url(#dots)"/>
+  <!-- awning -->
+  <rect x="100" y="130" width="600" height="60" fill="#c0392b" rx="6"/>
+  <g fill="#f5b301">
+    <rect x="100" y="190" width="75" height="26"/>
+    <rect x="250" y="190" width="75" height="26"/>
+    <rect x="400" y="190" width="75" height="26"/>
+    <rect x="550" y="190" width="75" height="26"/>
+  </g>
+  <g fill="#c0392b">
+    <rect x="175" y="190" width="75" height="26"/>
+    <rect x="325" y="190" width="75" height="26"/>
+    <rect x="475" y="190" width="75" height="26"/>
+    <rect x="625" y="190" width="75" height="26"/>
+  </g>
+  <!-- signboard -->
+  <rect x="140" y="240" width="520" height="90" fill="#1c1917" rx="8"/>
+  <path d="M195 258 L203 281 L227 281 L208 296 L215 319 L195 305 L175 319 L182 296 L163 281 L187 281 Z" fill="#f5b301"/>
+  <text x="420" y="298" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="bold" fill="#faf7f2">STAR FLEX PRINTERS</text>
+  <!-- shutters -->
+  <rect x="160" y="350" width="220" height="180" fill="#e2dbce" stroke="#a8a29e" stroke-width="2"/>
+  <rect x="420" y="350" width="220" height="180" fill="#e2dbce" stroke="#a8a29e" stroke-width="2"/>
+  <g stroke="#a8a29e" stroke-width="2">
+    <line x1="160" y1="380" x2="380" y2="380"/><line x1="160" y1="410" x2="380" y2="410"/>
+    <line x1="160" y1="440" x2="380" y2="440"/><line x1="160" y1="470" x2="380" y2="470"/>
+    <line x1="160" y1="500" x2="380" y2="500"/>
+    <line x1="420" y1="380" x2="640" y2="380"/><line x1="420" y1="410" x2="640" y2="410"/>
+    <line x1="420" y1="440" x2="640" y2="440"/><line x1="420" y1="470" x2="640" y2="470"/>
+    <line x1="420" y1="500" x2="640" y2="500"/>
+  </g>
+  <text x="400" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#57534e">Dukaan ki asli photo jald aa rahi hai</text>
+</svg>

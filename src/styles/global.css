@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/instrument-sans";
+@import "@fontsource-variable/anek-devanagari";
+
+@theme {
+  --color-paper: #faf7f2;
+  --color-ink: #1c1917;
+  --color-brand: #c0392b;
+  --color-brand-dark: #a93226;
+  --color-accent: #f5b301;
+  --color-wa: #1da851;
+  --color-wa-dark: #178a43;
+
+  --font-display: "Bricolage Grotesque Variable", "Anek Devanagari Variable", sans-serif;
+  --font-body: "Instrument Sans Variable", "Anek Devanagari Variable", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sections offset below the sticky header when anchor-navigated */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Halftone dot texture, used behind hero and gallery heading */
+.halftone {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-ink) 10%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 14px 14px;
+}
+
+/* Amber marker swipe under one key word in a heading */
+.marker {
+  position: relative;
+  white-space: nowrap;
+}
+.marker::after {
+  content: "";
+  position: absolute;
+  left: -0.1em;
+  right: -0.1em;
+  bottom: 0.02em;
+  height: 0.34em;
+  background: var(--color-accent);
+  transform: skew(-12deg) rotate(-1deg);
+  opacity: 0.55;
+  z-index: -1;
+  border-radius: 2px;
+}
+
+/* Print-style crop marks on a corner-decorated block */
+.cropmarks {
+  position: relative;
+}
+.cropmarks::before,
+.cropmarks::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--color-brand);
+  border-style: solid;
+  opacity: 0.7;
+}
+.cropmarks::before {
+  top: -9px;
+  left: -9px;
+  border-width: 2px 0 0 2px;
+}
+.cropmarks::after {
+  bottom: -9px;
+  right: -9px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Scroll reveal (respects reduced motion) */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

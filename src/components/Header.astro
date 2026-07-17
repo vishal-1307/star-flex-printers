@@ -1,0 +1,85 @@
+---
+import Icon from "./Icon.astro";
+import { site, telHref } from "../data/site";
+
+const navLinks = [
+  { href: "#services", label: "Services" },
+  { href: "#gallery", label: "Gallery" },
+  { href: "#location", label: "Location" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-stone-200 bg-paper/95 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+    <a href="#top" class="flex items-center gap-2 font-display text-lg font-bold text-ink sm:text-xl">
+      <span class="flex h-8 w-8 items-center justify-center rounded-md bg-brand text-accent">
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+          <path d="M12 2 14 9.5 22 9.5 15.6 14 18 21.5 12 17 6 21.5 8.4 14 2 9.5 10 9.5Z" />
+        </svg>
+      </span>
+      Star Flex Printers
+    </a>
+
+    <nav class="hidden items-center gap-6 md:flex">
+      {navLinks.map((l) => (
+        <a href={l.href} class="text-sm font-medium text-ink/80 transition hover:text-brand">
+          {l.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <a
+        href={telHref(site.phones[0])}
+        class="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark"
+      >
+        <Icon name="phone" class="h-4 w-4" />
+        Call Now
+      </a>
+    </div>
+
+    <button
+      id="menu-toggle"
+      type="button"
+      class="grid h-10 w-10 place-items-center rounded-lg border border-stone-300 text-ink md:hidden"
+      aria-label="Menu kholein"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <Icon name="menu" class="h-5 w-5" />
+    </button>
+  </div>
+
+  <nav id="mobile-nav" class="hidden border-t border-stone-200 bg-paper md:hidden">
+    <div class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
+      {navLinks.map((l) => (
+        <a href={l.href} class="rounded-md px-2 py-2 text-sm font-medium text-ink/80 hover:bg-stone-100">
+          {l.label}
+        </a>
+      ))}
+      <a
+        href={telHref(site.phones[0])}
+        class="mt-1 inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white"
+      >
+        <Icon name="phone" class="h-4 w-4" />
+        Call Now
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const nav = document.getElementById("mobile-nav");
+  toggle?.addEventListener("click", () => {
+    const isOpen = nav?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+  nav?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      nav.classList.add("hidden");
+      toggle?.setAttribute("aria-expanded", "false");
+    })
+  );
+</script>

@@ -1,0 +1,53 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../data/site";
+---
+
+<section id="location" class="mx-auto max-w-6xl px-4 py-16 sm:py-20">
+  <div class="reveal mb-10 max-w-xl">
+    <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">Kahan Milenge</p>
+    <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">
+      Hamari <span class="marker">Location</span>
+    </h2>
+  </div>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <div class="reveal overflow-hidden rounded-xl border border-stone-200">
+      <iframe
+        title="Star Flex Printers — Google Maps location"
+        src={site.mapsEmbed}
+        class="h-80 w-full md:h-full"
+        style="border:0"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+
+    <div class="reveal flex flex-col justify-center gap-5 rounded-xl border border-stone-200 bg-white/60 p-6 sm:p-8">
+      <div class="flex gap-3">
+        <Icon name="pin" class="mt-0.5 h-5 w-5 shrink-0 text-brand" />
+        <div>
+          <p class="font-semibold text-ink">{site.address.line}</p>
+          <p class="text-ink/70">
+            {site.address.city}, {site.address.state} {site.address.pin}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <Icon name="phone" class="mt-0.5 h-5 w-5 shrink-0 text-brand" />
+        <p class="text-ink/80">{site.hours.display}</p>
+      </div>
+
+      <a
+        href={site.mapsDirections}
+        target="_blank"
+        rel="noopener"
+        class="mt-2 inline-flex w-fit items-center gap-2 rounded-lg border border-brand px-5 py-2.5 text-sm font-semibold text-brand transition hover:bg-brand hover:text-white"
+      >
+        <Icon name="compass" class="h-4 w-4" />
+        Directions Dekhein
+      </a>
+    </div>
+  </div>
+</section>
