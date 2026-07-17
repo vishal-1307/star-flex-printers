@@ -5,7 +5,7 @@ import { site, telHref, waHref, waGreeting } from "../data/site";
 
 <section id="top" class="halftone relative overflow-hidden border-b border-stone-200">
   <div class="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:py-20 md:grid-cols-2 md:items-center md:py-24">
-    <div class="reveal">
+    <div class="reveal order-2 md:order-1">
       <p class="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
         <span class="h-px w-6 bg-brand"></span>
         Madhubani's Own Printing Shop
@@ -38,7 +38,7 @@ import { site, telHref, waHref, waGreeting } from "../data/site";
       <p class="mt-5 text-sm text-ink/60">{site.hours.display}</p>
     </div>
 
-    <div class="reveal cropmarks mx-auto w-full max-w-md">
+    <div class="reveal cropmarks order-1 mx-auto w-full max-w-md md:order-2">
       <img
         src={site.shopfront}
         alt="Star Flex Printers shopfront at Bata Chowk, Madhubani"
