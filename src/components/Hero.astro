@@ -4,8 +4,8 @@ import { site, telHref, waHref, waGreeting } from "../data/site";
 ---
 
 <section id="top" class="halftone relative overflow-hidden border-b border-stone-200">
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:py-20 md:grid-cols-2 md:items-center md:py-24">
-    <div class="reveal order-2 md:order-1">
+  <div class="hero-grid mx-auto max-w-6xl gap-10 px-4 py-16 sm:py-20 md:py-24">
+    <div class="hero-top reveal">
       <p class="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
         <span class="h-px w-6 bg-brand"></span>
         Madhubani's Own Printing Shop
@@ -15,8 +15,21 @@ import { site, telHref, waHref, waGreeting } from "../data/site";
       </h1>
       <p class="mt-2 font-display text-xl text-ink/70">स्टार फ्लेक्स प्रिंटर्स</p>
       <p class="mt-5 max-w-md text-lg text-ink/80">{site.tagline}</p>
+    </div>
 
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+    <div class="hero-photo reveal cropmarks mx-auto w-full max-w-md">
+      <img
+        src={site.shopfront}
+        alt="Star Flex Printers shopfront at Bata Chowk, Madhubani"
+        class="aspect-[3/4] w-full rounded-xl border border-stone-200 object-cover shadow-sm"
+        width="1200"
+        height="1600"
+        loading="eager"
+      />
+    </div>
+
+    <div class="hero-bottom reveal">
+      <div class="flex flex-col gap-3 sm:flex-row">
         <a
           href={telHref(site.phones[0])}
           class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-brand px-6 text-base font-semibold text-white shadow-sm transition hover:bg-brand-dark"
@@ -37,16 +50,29 @@ import { site, telHref, waHref, waGreeting } from "../data/site";
 
       <p class="mt-5 text-sm text-ink/60">{site.hours.display}</p>
     </div>
-
-    <div class="reveal cropmarks order-1 mx-auto w-full max-w-md md:order-2">
-      <img
-        src={site.shopfront}
-        alt="Star Flex Printers shopfront at Bata Chowk, Madhubani"
-        class="aspect-[3/4] w-full rounded-xl border border-stone-200 object-cover shadow-sm"
-        width="1200"
-        height="1600"
-        loading="eager"
-      />
-    </div>
   </div>
 </section>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-areas: "top" "photo" "bottom";
+  }
+  .hero-top {
+    grid-area: top;
+  }
+  .hero-photo {
+    grid-area: photo;
+  }
+  .hero-bottom {
+    grid-area: bottom;
+  }
+
+  @media (min-width: 768px) {
+    .hero-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "top photo" "bottom photo";
+      align-items: center;
+    }
+  }
+</style>
