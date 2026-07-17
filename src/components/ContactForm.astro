@@ -6,28 +6,28 @@ import { site, telHref, services } from "../data/site";
 <section id="contact" class="border-t border-stone-200 bg-white/50">
   <div class="mx-auto max-w-6xl px-4 py-16 sm:py-20">
     <div class="reveal mb-10 max-w-xl">
-      <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">Sampark Karein</p>
+      <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">Get in Touch</p>
       <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">
-        Order Karein ya <span class="marker">Poochhein</span>
+        Place an Order or <span class="marker">Ask a Question</span>
       </h2>
       <p class="mt-3 text-ink/70">
-        Form bharein, WhatsApp par seedha message pahunch jayega — ya seedhe call/WhatsApp karein.
+        Fill the form and we'll get your message straight on WhatsApp — or just call/WhatsApp us directly.
       </p>
     </div>
 
     <div class="grid gap-8 md:grid-cols-5">
       <form id="enquiry-form" class="reveal md:col-span-3 space-y-4 rounded-xl border border-stone-200 bg-paper p-6 sm:p-8" novalidate>
         <div>
-          <label for="name" class="mb-1 block text-sm font-medium text-ink">Naam *</label>
+          <label for="name" class="mb-1 block text-sm font-medium text-ink">Name *</label>
           <input
             id="name"
             name="name"
             type="text"
             required
             class="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
-            placeholder="Aapka naam"
+            placeholder="Your name"
           />
-          <p class="mt-1 hidden text-xs text-brand" data-error="name">Kripya apna naam likhein.</p>
+          <p class="mt-1 hidden text-xs text-brand" data-error="name">Please enter your name.</p>
         </div>
 
         <div>
@@ -39,19 +39,19 @@ import { site, telHref, services } from "../data/site";
             inputmode="numeric"
             required
             class="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
-            placeholder="10 ank ka mobile number"
+            placeholder="10-digit mobile number"
           />
-          <p class="mt-1 hidden text-xs text-brand" data-error="phone">Kripya sahi 10-ank ka number likhein.</p>
+          <p class="mt-1 hidden text-xs text-brand" data-error="phone">Please enter a valid 10-digit number.</p>
         </div>
 
         <div>
-          <label for="service" class="mb-1 block text-sm font-medium text-ink">Service Chahiye</label>
+          <label for="service" class="mb-1 block text-sm font-medium text-ink">Service Needed</label>
           <select
             id="service"
             name="service"
             class="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
           >
-            <option value="">-- Service chunein --</option>
+            <option value="">-- Select a service --</option>
             {services.map((s) => (
               <option value={s.name}>{s.name}</option>
             ))}
@@ -65,7 +65,7 @@ import { site, telHref, services } from "../data/site";
             name="message"
             rows="3"
             class="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
-            placeholder="Kuch aur batana ho to yahan likhein"
+            placeholder="Anything else we should know?"
           ></textarea>
         </div>
 
@@ -74,13 +74,13 @@ import { site, telHref, services } from "../data/site";
           class="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-lg bg-wa px-6 text-base font-semibold text-white transition hover:bg-wa-dark sm:w-auto"
         >
           <Icon name="whatsapp" class="h-5 w-5" />
-          WhatsApp par Bhejein
+          Send on WhatsApp
         </button>
       </form>
 
       <div class="reveal md:col-span-2 flex flex-col gap-4 rounded-xl border border-stone-200 bg-paper p-6 sm:p-8">
-        <p class="text-sm font-semibold uppercase tracking-wide text-ink/50">Form Bharna Nahi Chahte?</p>
-        <p class="text-ink/70">Seedhe call ya WhatsApp karein — hum turant jawab denge.</p>
+        <p class="text-sm font-semibold uppercase tracking-wide text-ink/50">Don't Want to Fill a Form?</p>
+        <p class="text-ink/70">Call or WhatsApp us directly — we'll respond right away.</p>
 
         <a
           href={telHref(site.phones[0])}
@@ -148,8 +148,8 @@ import { site, telHref, services } from "../data/site";
     if (!valid) return;
 
     const lines = [
-      "Namaste Star Flex Printers!",
-      `Naam: ${name}`,
+      "Hello Star Flex Printers!",
+      `Name: ${name}`,
       `Phone: ${phoneDigits}`,
     ];
     if (service) lines.push(`Service: ${service}`);

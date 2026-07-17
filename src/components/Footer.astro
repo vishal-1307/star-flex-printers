@@ -7,13 +7,13 @@ import { site, telHref } from "../data/site";
   <div class="mx-auto max-w-6xl px-4 py-12 sm:py-14">
     <div class="grid gap-10 sm:grid-cols-3">
       <div>
-        <p class="font-display text-xl font-bold text-white">Star Flex Printers</p>
-        <p class="mt-1 font-display text-base text-paper/60">{site.nameHindi}</p>
+        <img src={site.logo} alt="Star Flex Printers logo" class="h-12 w-auto rounded bg-paper p-1" />
+        <p class="mt-3 font-display text-base text-paper/60">{site.nameHindi}</p>
         <p class="mt-4 max-w-xs text-sm leading-relaxed text-paper/60">{site.tagline}</p>
       </div>
 
       <div>
-        <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-accent">Sampark</p>
+        <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-accent">Contact</p>
         <ul class="space-y-2 text-sm">
           {site.phones.map((p) => (
             <li>
@@ -33,7 +33,7 @@ import { site, telHref } from "../data/site";
       </div>
 
       <div>
-        <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-accent">Pata &amp; Samay</p>
+        <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-accent">Address &amp; Hours</p>
         <p class="flex items-start gap-2 text-sm">
           <Icon name="pin" class="mt-0.5 h-4 w-4 shrink-0" />
           <span>
@@ -54,7 +54,7 @@ import { site, telHref } from "../data/site";
     </div>
 
     <div class="mt-10 border-t border-paper/10 pt-6 text-xs text-paper/40">
-      &copy; {new Date().getFullYear()} Star Flex Printers. Sabhi adhikar surakshit.
+      &copy; {new Date().getFullYear()} Star Flex Printers. All rights reserved.
     </div>
   </div>
 </footer>

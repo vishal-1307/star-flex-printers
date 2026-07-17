@@ -12,13 +12,8 @@ const navLinks = [
 
 <header class="sticky top-0 z-50 border-b border-stone-200 bg-paper/95 backdrop-blur">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-    <a href="#top" class="flex items-center gap-2 font-display text-lg font-bold text-ink sm:text-xl">
-      <span class="flex h-8 w-8 items-center justify-center rounded-md bg-brand text-accent">
-        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true">
-          <path d="M12 2 14 9.5 22 9.5 15.6 14 18 21.5 12 17 6 21.5 8.4 14 2 9.5 10 9.5Z" />
-        </svg>
-      </span>
-      Star Flex Printers
+    <a href="#top" class="flex items-center gap-2">
+      <img src={site.logo} alt="Star Flex Printers logo" class="h-10 w-auto sm:h-11" />
     </a>
 
     <nav class="hidden items-center gap-6 md:flex">
@@ -43,7 +38,7 @@ const navLinks = [
       id="menu-toggle"
       type="button"
       class="grid h-10 w-10 place-items-center rounded-lg border border-stone-300 text-ink md:hidden"
-      aria-label="Menu kholein"
+      aria-label="Open menu"
       aria-expanded="false"
       aria-controls="mobile-nav"
     >

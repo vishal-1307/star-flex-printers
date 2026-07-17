@@ -5,7 +5,7 @@ import { site } from "../data/site";
 const title =
   "Star Flex Printers — Flex Banner, LED Board & All Printing Services in Madhubani";
 const description =
-  `Flex banner, hoarding, LED board, visiting card, shaadi card aur sabhi printing services Madhubani me. ${site.address.line}. Call ya WhatsApp: ${site.phones[0]}.`;
+  `Flex banner, hoarding, LED board, visiting cards, wedding cards and all printing services in Madhubani. ${site.address.line}. Call or WhatsApp: ${site.phones[0]}.`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -24,12 +24,12 @@ const jsonLd = {
     addressCountry: "IN",
   },
   openingHours: site.hours.schema,
-  image: "/hero-shopfront.svg",
+  image: site.shopfront,
 };
 ---
 
 <!doctype html>
-<html lang="hi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,7 +39,8 @@ const jsonLd = {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:locale" content="hi_IN" />
+    <meta property="og:image" content={site.shopfront} />
+    <meta property="og:locale" content="en_IN" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
