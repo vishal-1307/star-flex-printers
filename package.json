@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "brochure": "node scripts/generate-brochure.mjs"
   },
   "dependencies": {
     "@fontsource-variable/anek-devanagari": "^5.2.7",
@@ -18,5 +19,8 @@
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.0",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "pdfkit": "^0.19.1"
   }
 }
