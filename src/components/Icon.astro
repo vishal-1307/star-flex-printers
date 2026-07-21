@@ -32,16 +32,23 @@ const paths: Record<string, string> = {
   menu: "M3 6h18M3 12h18M3 18h18",
   close: "M6 6l12 12M18 6 6 18",
   compass: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm2.5 6.5-1.5 4-4 1.5 1.5-4 4-1.5Z",
+  download: "M12 3v12m0 0-4-4m4 4 4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2",
+  chevron: "M6 9l6 6 6-6",
 };
 
+// phone/whatsapp are solid glyph shapes — must be filled, not stroked,
+// or the silhouette renders as a hollow/scribbled outline.
+const FILLED = new Set(["phone", "whatsapp"]);
+
 const d = paths[name] ?? paths.phone;
+const isFilled = FILLED.has(name);
 ---
 
 <svg
   class={className}
   viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
+  fill={isFilled ? "currentColor" : "none"}
+  stroke={isFilled ? "none" : "currentColor"}
   stroke-width="1.75"
   stroke-linecap="round"
   stroke-linejoin="round"
