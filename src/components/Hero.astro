@@ -1,6 +1,18 @@
 ---
+import { Image } from "astro:assets";
 import Icon from "./Icon.astro";
-import { site, telHref, waHref, waGreeting } from "../data/site";
+import { site, telHref, waHref } from "../data/site";
+import { portfolio } from "../data/portfolio";
+import { trustStats } from "../data/trust";
+
+const heroSamples = portfolio
+  .filter((item) => item.featured && item.service !== "Flex Banner Printing")
+  .slice(0, 2);
+
+const heroWaMessage =
+  "Hello Star Flex Printers! I'd like a free quote for a design/printing job. Could you share the details?";
+
+const strip = [trustStats[0], trustStats[3], trustStats[5]];
 ---
 
 <section id="top" class="halftone relative overflow-hidden border-b border-stone-200">
@@ -8,47 +20,75 @@ import { site, telHref, waHref, waGreeting } from "../data/site";
     <div class="hero-top reveal">
       <p class="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
         <span class="h-px w-6 bg-brand"></span>
-        Madhubani's Own Printing Shop
+        Madhubani's Design &amp; Printing Partner
       </p>
       <h1 class="font-display text-[clamp(2.2rem,8vw,4rem)] font-bold leading-[1.05] text-ink">
-        Star Flex <span class="marker">Printers</span>
+        From Design to <span class="marker">Print</span>, All in One Place
       </h1>
-      <p class="mt-2 font-display text-xl text-ink/70">स्टार फ्लेक्स प्रिंटर्स</p>
-      <p class="mt-5 max-w-md text-lg text-ink/80">{site.tagline}</p>
+      <p class="mt-2 font-display text-lg text-ink/70">
+        Star Flex Printers · स्टार फ्लेक्स प्रिंटर्स
+      </p>
+      <p class="mt-5 max-w-md text-lg text-ink/80">
+        Banners, boards, cards and more — our in-house designers create it, our machines print it, ready fast.
+      </p>
     </div>
 
-    <div class="hero-photo reveal cropmarks mx-auto w-full max-w-md">
+    <div class="hero-photo reveal cropmarks mx-auto grid w-full max-w-md grid-cols-2 gap-2">
       <img
         src={site.shopfront}
         alt="Star Flex Printers shopfront at Bata Chowk, Madhubani"
-        class="aspect-[3/4] w-full rounded-xl border border-stone-200 object-cover shadow-sm"
+        class="col-span-2 aspect-[16/10] w-full rounded-xl border border-stone-200 object-cover shadow-sm"
         width="1200"
         height="1600"
         loading="eager"
       />
+      {heroSamples.map((item) => (
+        <Image
+          src={item.image}
+          alt={item.alt}
+          class="aspect-square w-full rounded-xl border border-stone-200 object-cover shadow-sm"
+          widths={[240, 400]}
+          sizes="200px"
+        />
+      ))}
     </div>
 
     <div class="hero-bottom reveal">
       <div class="flex flex-col gap-3 sm:flex-row">
         <a
-          href={telHref(site.phones[0])}
-          class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-brand px-6 text-base font-semibold text-white shadow-sm transition hover:bg-brand-dark"
-        >
-          <Icon name="phone" class="h-5 w-5" />
-          Call Now
-        </a>
-        <a
-          href={waHref(waGreeting)}
+          href={waHref(heroWaMessage)}
           target="_blank"
           rel="noopener"
           class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-wa px-6 text-base font-semibold text-white shadow-sm transition hover:bg-wa-dark"
         >
           <Icon name="whatsapp" class="h-5 w-5" />
-          WhatsApp Now
+          Get a Free Quote on WhatsApp
+        </a>
+        <a
+          href="/gallery"
+          class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-stone-300 px-6 text-base font-semibold text-ink transition hover:border-brand hover:text-brand"
+        >
+          See Our Work
         </a>
       </div>
 
-      <p class="mt-5 text-sm text-ink/60">{site.hours.display}</p>
+      <p class="mt-4 text-sm text-ink/60">
+        Or call us:
+        <a href={telHref(site.phones[0])} class="font-semibold text-brand hover:underline">
+          {site.phones[0]}
+        </a>
+      </p>
+
+      <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-stone-200 pt-5">
+        {strip.map((stat) => (
+          <div class="flex items-center gap-2">
+            <Icon name={stat.icon} class="h-4 w-4 text-brand" />
+            <span class="text-sm text-ink/70">
+              <span class="font-semibold text-ink">{stat.value}</span> {stat.label}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>

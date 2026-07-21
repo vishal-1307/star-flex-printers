@@ -1,0 +1,20 @@
+---
+import Icon from "./Icon.astro";
+import { trustStats } from "../data/trust";
+---
+
+<section class="border-y border-stone-200 bg-ink">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:py-14">
+    <div class="grid grid-cols-2 gap-6 sm:grid-cols-3">
+      {trustStats.map((stat) => (
+        <div class="reveal text-center">
+          <div class="mx-auto mb-2 grid h-10 w-10 place-items-center rounded-full bg-accent/20 text-accent">
+            <Icon name={stat.icon} class="h-5 w-5" />
+          </div>
+          <p class="font-display text-2xl font-bold text-white sm:text-3xl">{stat.value}</p>
+          <p class="mt-1 text-xs text-paper/60 sm:text-sm">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

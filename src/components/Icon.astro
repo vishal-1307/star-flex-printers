@@ -34,11 +34,20 @@ const paths: Record<string, string> = {
   compass: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm2.5 6.5-1.5 4-4 1.5 1.5-4 4-1.5Z",
   download: "M12 3v12m0 0-4-4m4 4 4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2",
   chevron: "M6 9l6 6 6-6",
+  pencil: "M4 20h4L18.5 9.5a2.1 2.1 0 0 0-3-3L5 17v3Zm10.5-13.5 3 3",
+  certificate: "M6 3h12v13l-6-3-6 3V3Z M9 16l-2 5 5-3 5 3-2-5",
+  social: "M8 3 6 21M16 3l-2 18M3 9h18M2 15h18",
+  target: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-4a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-3a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z",
+  star: "M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7-5.4-4.7 7.1-.6L12 2Z",
+  users: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2 20c0-3 3-5 7-5s7 2 7 5M14 15c3.5 0 7 2 7 5",
+  clock: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-14v5l3 3",
+  award: "M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm-3 3-2 5 5-3 5 3-2-5",
+  check: "M5 13l4 4L19 7",
 };
 
-// phone/whatsapp are solid glyph shapes — must be filled, not stroked,
-// or the silhouette renders as a hollow/scribbled outline.
-const FILLED = new Set(["phone", "whatsapp"]);
+// Solid glyph shapes — must be filled, not stroked, or the silhouette
+// renders as a hollow/scribbled outline.
+const FILLED = new Set(["phone", "whatsapp", "star"]);
 
 const d = paths[name] ?? paths.phone;
 const isFilled = FILLED.has(name);

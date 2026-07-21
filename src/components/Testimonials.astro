@@ -1,4 +1,5 @@
 ---
+import Icon from "./Icon.astro";
 import { testimonials } from "../data/site";
 ---
 
@@ -12,14 +13,17 @@ import { testimonials } from "../data/site";
     </div>
 
     <div class="grid gap-5 sm:grid-cols-3">
-      {testimonials.map((quote) => (
+      {testimonials.map((t) => (
         <figure class="reveal rounded-xl border border-stone-200 bg-paper p-6">
-          <svg viewBox="0 0 24 24" class="mb-3 h-7 w-7 text-accent" fill="currentColor" aria-hidden="true">
-            <path d="M9 7c-2.8 0-5 2.2-5 5v5h5v-5H6.5C6.5 9.8 7.6 8.6 9 8.3V7Zm10 0c-2.8 0-5 2.2-5 5v5h5v-5h-2.5c0-2.2 1.1-3.4 2.5-3.7V7Z" />
-          </svg>
-          <blockquote class="text-sm leading-relaxed text-ink/80">{quote}</blockquote>
-          <figcaption class="mt-4 text-xs font-semibold uppercase tracking-wide text-ink/50">
-            Google Review
+          <div class="mb-3 flex gap-0.5 text-accent" aria-label={`${t.rating} out of 5 stars`}>
+            {Array.from({ length: t.rating }).map(() => (
+              <Icon name="star" class="h-4 w-4" />
+            ))}
+          </div>
+          <blockquote class="text-sm leading-relaxed text-ink/80">{t.quote}</blockquote>
+          <figcaption class="mt-4">
+            <p class="text-sm font-semibold text-ink">{t.name}</p>
+            <p class="text-xs font-semibold uppercase tracking-wide text-ink/50">Google Review</p>
           </figcaption>
         </figure>
       ))}

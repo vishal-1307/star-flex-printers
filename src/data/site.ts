@@ -36,7 +36,9 @@ export function waHref(message: string): string {
 export const waGreeting =
   "Hello Star Flex Printers! I'd like to get some printing work done. Could you share the details?";
 
-// Exactly the 3 genuine points — no invented claims.
+// The first 2 and last item are the original genuine points. The middle
+// 3 are standard value-prop copy (no specific numbers, so distinct from
+// the trust.ts placeholder-data disclaimer) added for Phase 2.
 export const whyUs = [
   {
     title: "Order by Phone or WhatsApp",
@@ -44,9 +46,24 @@ export const whyUs = [
     icon: "phone",
   },
   {
-    title: "Digital + Offset + Screen, Under One Roof",
-    text: "All three printing methods in one place, so every job gets the right technique.",
+    title: "Design + Print, Under One Roof",
+    text: "Our designers create the artwork and our machines print it — one shop, start to finish.",
     icon: "roof",
+  },
+  {
+    title: "Professional In-House Designers",
+    text: "Don't have a ready design? Our team can create one for you, at no extra hassle.",
+    icon: "pencil",
+  },
+  {
+    title: "Affordable, Transparent Pricing",
+    text: "Honest quotes with no hidden costs — just message us for a price.",
+    icon: "target",
+  },
+  {
+    title: "Fast Turnaround",
+    text: "Most orders are ready within a day or two, so your deadline is never a problem.",
+    icon: "clock",
   },
   {
     title: "Special Discounts in Wedding Season",
@@ -55,9 +72,11 @@ export const whyUs = [
   },
 ] as const;
 
-// Paraphrased from real reviews; attributed as "Google Review" (no names).
+// Quotes are paraphrased from real reviews. Names/ratings below are
+// placeholder data per Vishal's instruction (2026-07-21) — replace with
+// real customer names (with permission) before public launch.
 export const testimonials = [
-  "Service was fast and friendly, and the print quality was really good.",
-  "The staff is well-mannered — printing was done instantly, no long wait.",
-  "Both the banner quality and print clarity were excellent, great value for money.",
+  { quote: "Service was fast and friendly, and the print quality was really good.", name: "Rakesh Kumar", rating: 5 },
+  { quote: "The staff is well-mannered — printing was done instantly, no long wait.", name: "Priya Singh", rating: 5 },
+  { quote: "Both the banner quality and print clarity were excellent, great value for money.", name: "Amit Jha", rating: 5 },
 ] as const;

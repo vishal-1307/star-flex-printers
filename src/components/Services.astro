@@ -1,6 +1,5 @@
 ---
 import ServiceCard from "./ServiceCard.astro";
-import ServiceEnquiryDrawer from "./ServiceEnquiryDrawer.astro";
 import { services } from "../data/services";
 
 interface Props {
@@ -49,5 +48,3 @@ const items = limit ? services.slice(0, limit) : services;
     </div>
   )}
 </section>
-
-{enableQuery && <ServiceEnquiryDrawer />}
