@@ -23,11 +23,45 @@ const samples = portfolio.filter((item) => item.service === service.name);
 const relatedServices = service.related
   .map((slug) => services.find((s) => s.slug === slug))
   .filter((s): s is (typeof services)[number] => Boolean(s));
+
+// No absolute `url` fields — the site isn't deployed to a confirmed
+// domain yet, and a wrong baked-in URL would be worse than omitting it.
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: service.name,
+  description: service.longDescription,
+  provider: {
+    "@type": "LocalBusiness",
+    name: site.name,
+    telephone: `+91${site.phones[0]}`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.address.line,
+      addressLocality: site.address.city,
+      addressRegion: site.address.state,
+      postalCode: site.address.pin,
+      addressCountry: "IN",
+    },
+  },
+  areaServed: site.address.city,
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: service.faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: { "@type": "Answer", text: faq.a },
+  })),
+};
 ---
 
 <Layout
   title={`${service.name} — Star Flex Printers, Madhubani`}
   description={service.longDescription}
+  extraJsonLd={[serviceJsonLd, faqJsonLd]}
 >
   <Header />
   <main>

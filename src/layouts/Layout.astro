@@ -5,6 +5,7 @@ import { site } from "../data/site";
 interface Props {
   title?: string;
   description?: string;
+  extraJsonLd?: Record<string, unknown>[];
 }
 
 const defaultTitle =
@@ -12,7 +13,7 @@ const defaultTitle =
 const defaultDescription =
   `Flex banner, hoarding, LED board, visiting cards, wedding cards and all printing services in Madhubani. ${site.address.line}. Call or WhatsApp: ${site.phones[0]}.`;
 
-const { title = defaultTitle, description = defaultDescription } = Astro.props;
+const { title = defaultTitle, description = defaultDescription, extraJsonLd = [] } = Astro.props;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -51,6 +52,9 @@ const jsonLd = {
     <meta property="og:image" content={site.shopfront} />
     <meta property="og:locale" content="en_IN" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {extraJsonLd.map((entry) => (
+      <script type="application/ld+json" set:html={JSON.stringify(entry)} />
+    ))}
   </head>
   <body>
     <slot />
