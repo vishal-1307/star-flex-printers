@@ -110,35 +110,37 @@ import { site, telHref, services } from "../data/site";
   </div>
 </section>
 
-<script define:vars={{ whatsappNumber: site.whatsapp }}>
-  const form = document.getElementById("enquiry-form");
+<script>
+  import { site } from "../data/site";
+  import { normalizePhone, isValidName, isValidPhone, buildWaUrl, openWa } from "../lib/whatsapp";
+
+  const form = document.getElementById("enquiry-form") as HTMLFormElement | null;
 
   form?.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const nameEl = document.getElementById("name");
-    const phoneEl = document.getElementById("phone");
-    const serviceEl = document.getElementById("service");
-    const messageEl = document.getElementById("message");
+    const nameEl = document.getElementById("name") as HTMLInputElement;
+    const phoneEl = document.getElementById("phone") as HTMLInputElement;
+    const serviceEl = document.getElementById("service") as HTMLSelectElement;
+    const messageEl = document.getElementById("message") as HTMLTextAreaElement;
 
     const name = nameEl.value.trim();
     const phone = phoneEl.value.trim();
     const service = serviceEl.value;
     const message = messageEl.value.trim();
 
-    const phoneDigits = phone.replace(/\D/g, "");
     const nameError = document.querySelector('[data-error="name"]');
     const phoneError = document.querySelector('[data-error="phone"]');
 
     let valid = true;
-    if (name.length < 2) {
+    if (!isValidName(name)) {
       nameError?.classList.remove("hidden");
       valid = false;
     } else {
       nameError?.classList.add("hidden");
     }
 
-    if (phoneDigits.length !== 10) {
+    if (!isValidPhone(phone)) {
       phoneError?.classList.remove("hidden");
       valid = false;
     } else {
@@ -150,12 +152,11 @@ import { site, telHref, services } from "../data/site";
     const lines = [
       "Hello Star Flex Printers!",
       `Name: ${name}`,
-      `Phone: ${phoneDigits}`,
+      `Phone: ${normalizePhone(phone)}`,
     ];
     if (service) lines.push(`Service: ${service}`);
     if (message) lines.push(`Message: ${message}`);
 
-    const text = encodeURIComponent(lines.join("\n"));
-    window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank", "noopener");
+    openWa(buildWaUrl(site.whatsapp, lines));
   });
 </script>
