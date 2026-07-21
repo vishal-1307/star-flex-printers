@@ -36,23 +36,6 @@ export function waHref(message: string): string {
 export const waGreeting =
   "Hello Star Flex Printers! I'd like to get some printing work done. Could you share the details?";
 
-// Drives BOTH the services grid and the enquiry-form dropdown.
-// icon = key into the icon set in Services.astro.
-export const services = [
-  { name: "Flex Banner Printing", icon: "banner", blurb: "Any size flex banner, fast turnaround" },
-  { name: "Hoarding Board", icon: "hoarding", blurb: "Large hoardings, from shopfront to highway" },
-  { name: "LED Board / LED Letter / Name Plate", icon: "led", blurb: "Bright LED boards and letters" },
-  { name: "Light Board", icon: "light", blurb: "Backlit boards that stand out at night" },
-  { name: "Steel Letter / Fiber Letter", icon: "letter3d", blurb: "3D steel and fiber letters" },
-  { name: "ACP Work", icon: "acp", blurb: "ACP sheet work for a modern shopfront" },
-  { name: "Visiting Card", icon: "card", blurb: "Professional visiting cards" },
-  { name: "ID Card", icon: "idcard", blurb: "ID cards for schools, offices and events" },
-  { name: "Wedding Card (Shaadi Card)", icon: "wedding", blurb: "Beautiful wedding cards for every budget" },
-  { name: "Letterhead", icon: "letterhead", blurb: "Business letterheads and bill books" },
-  { name: "Digital / Offset / Screen Printing", icon: "press", blurb: "All three printing methods, one place" },
-  { name: "Sticker / Name Plate", icon: "sticker", blurb: "Stickers and name plates, every size" },
-] as const;
-
 // Exactly the 3 genuine points — no invented claims.
 export const whyUs = [
   {
@@ -77,18 +60,4 @@ export const testimonials = [
   "Service was fast and friendly, and the print quality was really good.",
   "The staff is well-mannered — printing was done instantly, no long wait.",
   "Both the banner quality and print clarity were excellent, great value for money.",
-] as const;
-
-// Real work-sample photos from the shop, in /public/gallery/.
-export const gallery = [
-  { src: "/gallery/shop-signboard.jpg", alt: "Star Flex Printers flex banner shop signboard" },
-  { src: "/gallery/hoarding-board.jpg", alt: "Bank hoarding board printed by Star Flex Printers" },
-  { src: "/gallery/name-plates.png", alt: "Engraved room number and department name plates" },
-  { src: "/gallery/court-board.png", alt: "Printed notice board for a local court" },
-  { src: "/gallery/tshirt-printing.jpg", alt: "Custom election-symbol T-shirt printing" },
-  { src: "/gallery/cjm-plaque.png", alt: "Engraved office nameplate plaque" },
-  { src: "/gallery/election-poster-calendar.png", alt: "Offset-printed election poster and calendar" },
-  { src: "/gallery/notice-boards.png", alt: "Framed office notice boards" },
-  { src: "/gallery/caps-printing.jpg", alt: "Branded promotional caps printing" },
-  { src: "/gallery/election-posters.jpg", alt: "Sheet of offset-printed election posters" },
 ] as const;

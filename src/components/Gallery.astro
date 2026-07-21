@@ -1,5 +1,6 @@
 ---
-import { gallery } from "../data/site";
+import { Image } from "astro:assets";
+import { portfolio } from "../data/portfolio";
 
 interface Props {
   showHeading?: boolean;
@@ -22,15 +23,15 @@ const { showHeading = true } = Astro.props;
   )}
 
   <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-    {gallery.map((item) => (
+    {portfolio.map((item) => (
       <div class="reveal cropmarks overflow-hidden rounded-lg border border-stone-200 bg-white">
-        <img
-          src={item.src}
+        <Image
+          src={item.image}
           alt={item.alt}
           class="aspect-square w-full object-cover"
           loading="lazy"
-          width="800"
-          height="800"
+          widths={[240, 400, 600]}
+          sizes="(min-width: 768px) 25vw, 50vw"
         />
       </div>
     ))}
