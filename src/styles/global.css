@@ -132,9 +132,22 @@ section[id] {
   opacity: 1;
 }
 
+/* Portfolio lightbox: simple fade in/out */
+.lightbox,
+.lightbox-backdrop {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.lightbox.is-open,
+.lightbox-backdrop.is-open {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .service-drawer,
-  .service-drawer-backdrop {
+  .service-drawer-backdrop,
+  .lightbox,
+  .lightbox-backdrop {
     transition: none;
   }
 }

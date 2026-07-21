@@ -5,6 +5,7 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import StickyActionBar from "../../components/StickyActionBar.astro";
 import ServiceEnquiryDrawer from "../../components/ServiceEnquiryDrawer.astro";
+import Lightbox from "../../components/Lightbox.astro";
 import Icon from "../../components/Icon.astro";
 import { services } from "../../data/services";
 import { portfolio } from "../../data/portfolio";
@@ -70,16 +71,22 @@ const relatedServices = service.related
         </div>
         <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
           {samples.map((item) => (
-            <div class="reveal cropmarks overflow-hidden rounded-lg border border-stone-200 bg-white">
+            <button
+              type="button"
+              class="reveal cropmarks overflow-hidden rounded-lg border border-stone-200 bg-white text-left"
+              data-lightbox-trigger
+              data-lightbox-caption={item.caption}
+              data-lightbox-service={item.service}
+            >
               <Image
                 src={item.image}
                 alt={item.alt}
                 class="aspect-square w-full object-cover"
                 loading="lazy"
-                widths={[240, 400]}
+                widths={[240, 400, 600]}
                 sizes="(min-width: 768px) 33vw, 50vw"
               />
-            </div>
+            </button>
           ))}
         </div>
       </section>
@@ -135,4 +142,5 @@ const relatedServices = service.related
   <Footer />
   <StickyActionBar />
   <ServiceEnquiryDrawer />
+  <Lightbox />
 </Layout>

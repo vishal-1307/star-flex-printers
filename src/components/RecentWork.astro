@@ -23,16 +23,22 @@ const featured = portfolio.filter((item) => item.featured);
 
   <div class="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
     {featured.map((item) => (
-      <div class="reveal cropmarks overflow-hidden rounded-lg border border-stone-200 bg-white">
+      <button
+        type="button"
+        class="reveal cropmarks overflow-hidden rounded-lg border border-stone-200 bg-white text-left"
+        data-lightbox-trigger
+        data-lightbox-caption={item.caption}
+        data-lightbox-service={item.service}
+      >
         <Image
           src={item.image}
           alt={item.alt}
           class="aspect-square w-full object-cover"
           loading="lazy"
-          widths={[240, 400]}
+          widths={[240, 400, 600, 900]}
           sizes="(min-width: 768px) 25vw, 50vw"
         />
-      </div>
+      </button>
     ))}
   </div>
 </section>
