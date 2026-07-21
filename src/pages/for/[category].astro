@@ -1,0 +1,138 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import StickyActionBar from "../../components/StickyActionBar.astro";
+import Lightbox from "../../components/Lightbox.astro";
+import Icon from "../../components/Icon.astro";
+import { categories } from "../../data/categories";
+import { services } from "../../data/services";
+import { portfolio } from "../../data/portfolio";
+import { site, telHref, waHref } from "../../data/site";
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const matchingServices = services.filter((s) => (s.category as readonly string[]).includes(category.slug));
+const samples = portfolio.filter((item) => item.category === category.slug);
+const waMessage = `Hello Star Flex Printers! I'm looking for printing services for ${category.label.toLowerCase()}. Could you share the details?`;
+---
+
+<Layout
+  title={`Printing for ${category.label} — Star Flex Printers, Madhubani`}
+  description={category.description}
+>
+  <Header />
+  <main>
+    <section class="halftone border-b border-stone-200">
+      <div class="mx-auto max-w-4xl px-4 py-14 sm:py-16">
+        <a href="/services" class="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline">
+          ← All Services
+        </a>
+        <div class="reveal flex items-start gap-4">
+          <div class="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-brand/10 text-brand">
+            <Icon name={category.icon} class="h-7 w-7" />
+          </div>
+          <div>
+            <p class="mb-1 text-sm font-semibold uppercase tracking-wide text-accent">For {category.label}</p>
+            <h1 class="font-display text-3xl font-bold text-ink sm:text-4xl">
+              Printing for <span class="marker">{category.label}</span>
+            </h1>
+          </div>
+        </div>
+        <p class="reveal mt-6 max-w-2xl text-lg leading-relaxed text-ink/80">
+          {category.description}
+        </p>
+
+        <div class="reveal mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href={waHref(waMessage)}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-wa px-6 text-base font-semibold text-white shadow-sm transition hover:bg-wa-dark"
+          >
+            <Icon name="whatsapp" class="h-5 w-5" />
+            WhatsApp Us
+          </a>
+          <a
+            href={telHref(site.phones[0])}
+            class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-stone-300 px-6 text-base font-semibold text-ink transition hover:border-brand hover:text-brand"
+          >
+            <Icon name="phone" class="h-5 w-5" />
+            Call Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {matchingServices.length > 0 && (
+      <section class="mx-auto max-w-4xl px-4 py-14 sm:py-16">
+        <div class="reveal mb-8 max-w-xl">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">Relevant Services</p>
+          <h2 class="font-display text-2xl font-bold text-ink sm:text-3xl">
+            Services for <span class="marker">{category.label}</span>
+          </h2>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {matchingServices.map((s) => (
+            <a
+              href={`/services/${s.slug}`}
+              class="reveal group rounded-xl border border-stone-200 bg-white/60 p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <div class="mb-3 grid h-11 w-11 place-items-center rounded-lg bg-brand/10 text-brand">
+                <Icon name={s.icon} class="h-6 w-6" />
+              </div>
+              <h3 class="font-display text-base font-semibold leading-tight text-ink">{s.name}</h3>
+              <p class="mt-1 text-sm text-ink/60">{s.blurb}</p>
+              <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-brand/70 transition group-hover:text-brand">
+                View Details →
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {samples.length > 0 && (
+      <section class="border-t border-stone-200 bg-white/50">
+        <div class="mx-auto max-w-4xl px-4 py-14 sm:py-16">
+          <div class="reveal mb-8 max-w-xl">
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">Samples</p>
+            <h2 class="font-display text-2xl font-bold text-ink sm:text-3xl">
+              Work for <span class="marker">{category.label}</span>
+            </h2>
+          </div>
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {samples.map((item) => (
+              <button
+                type="button"
+                class="reveal cropmarks overflow-hidden rounded-lg border border-stone-200 bg-white text-left"
+                data-lightbox-trigger
+                data-lightbox-caption={item.caption}
+                data-lightbox-service={item.service}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  class="aspect-square w-full object-cover"
+                  loading="lazy"
+                  widths={[240, 400, 600]}
+                  sizes="(min-width: 768px) 33vw, 50vw"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+  <Footer />
+  <StickyActionBar />
+  <Lightbox />
+</Layout>
