@@ -12,7 +12,8 @@ import PDFDocument from "pdfkit";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { site, services } from "../src/data/site.ts";
+import { site } from "../src/data/site.ts";
+import { services } from "../src/data/services.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const outPath = path.join(__dirname, "../public/brochure.pdf");
