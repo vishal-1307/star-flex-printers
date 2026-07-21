@@ -1,14 +1,15 @@
 ---
-import Icon from "./Icon.astro";
+import ServiceCard from "./ServiceCard.astro";
 import { services } from "../data/site";
 
 interface Props {
   showHeading?: boolean;
   limit?: number;
   showViewAll?: boolean;
+  enableQuery?: boolean;
 }
 
-const { showHeading = true, limit, showViewAll = false } = Astro.props;
+const { showHeading = true, limit, showViewAll = false, enableQuery = false } = Astro.props;
 const items = limit ? services.slice(0, limit) : services;
 ---
 
@@ -26,16 +27,14 @@ const items = limit ? services.slice(0, limit) : services;
 
   <div class="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
     {items.map((s, i) => (
-      <div
-        class="reveal group rounded-xl border border-stone-200 bg-white/60 p-5 transition hover:-translate-y-0.5 hover:shadow-md"
-        style={`transition-delay:${(i % 4) * 60}ms`}
-      >
-        <div class="mb-3 grid h-11 w-11 place-items-center rounded-lg bg-brand/10 text-brand">
-          <Icon name={s.icon} class="h-6 w-6" />
-        </div>
-        <h3 class="font-display text-base font-semibold leading-tight text-ink">{s.name}</h3>
-        <p class="mt-1 text-sm text-ink/60">{s.blurb}</p>
-      </div>
+      <ServiceCard
+        name={s.name}
+        icon={s.icon}
+        blurb={s.blurb}
+        index={i}
+        enableQuery={enableQuery}
+        transitionDelay={`${(i % 4) * 60}ms`}
+      />
     ))}
   </div>
 
@@ -50,3 +49,72 @@ const items = limit ? services.slice(0, limit) : services;
     </div>
   )}
 </section>
+
+{enableQuery && (
+  <script>
+    import { site } from "../data/site";
+    import { normalizePhone, isValidName, isValidPhone, buildWaUrl, openWa } from "../lib/whatsapp";
+
+    const cards = document.querySelectorAll<HTMLElement>("[data-service-card]");
+
+    const closeCard = (card: HTMLElement) => {
+      card.querySelector("[data-service-panel]")?.classList.add("hidden");
+      card.querySelector("[data-service-toggle]")?.setAttribute("aria-expanded", "false");
+      card.querySelector("[data-service-chevron]")?.classList.remove("rotate-180");
+    };
+
+    cards.forEach((card) => {
+      const toggle = card.querySelector<HTMLButtonElement>("[data-service-toggle]");
+      const panel = card.querySelector<HTMLElement>("[data-service-panel]");
+      const chevron = card.querySelector("[data-service-chevron]");
+
+      toggle?.addEventListener("click", () => {
+        const wasOpen = !panel?.classList.contains("hidden");
+        cards.forEach((other) => {
+          if (other !== card) closeCard(other);
+        });
+        panel?.classList.toggle("hidden", wasOpen);
+        toggle.setAttribute("aria-expanded", String(!wasOpen));
+        chevron?.classList.toggle("rotate-180", !wasOpen);
+      });
+
+      const form = card.querySelector<HTMLFormElement>("[data-service-form]");
+      form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const serviceName = form.dataset.serviceName ?? "";
+        const nameEl = form.querySelector<HTMLInputElement>('[data-field="name"]')!;
+        const phoneEl = form.querySelector<HTMLInputElement>('[data-field="phone"]')!;
+        const noteEl = form.querySelector<HTMLTextAreaElement>('[data-field="note"]')!;
+        const nameError = form.querySelector('[data-error="name"]');
+        const phoneError = form.querySelector('[data-error="phone"]');
+
+        const name = nameEl.value.trim();
+        const phone = phoneEl.value.trim();
+        const note = noteEl.value.trim();
+
+        let valid = true;
+        if (!isValidName(name)) {
+          nameError?.classList.remove("hidden");
+          valid = false;
+        } else {
+          nameError?.classList.add("hidden");
+        }
+
+        if (!isValidPhone(phone)) {
+          phoneError?.classList.remove("hidden");
+          valid = false;
+        } else {
+          phoneError?.classList.add("hidden");
+        }
+
+        if (!valid) return;
+
+        let message = `Hi, I'm interested in ${serviceName}. Name: ${name}, Phone: ${normalizePhone(phone)}.`;
+        if (note) message += ` ${note}`;
+
+        openWa(buildWaUrl(site.whatsapp, [message]));
+      });
+    });
+  </script>
+)}
