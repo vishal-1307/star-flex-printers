@@ -5,11 +5,21 @@ import { site, telHref } from "../data/site";
 
 <footer class="bg-ink text-paper/80">
   <div class="mx-auto max-w-6xl px-4 py-12 sm:py-14">
-    <div class="grid gap-10 sm:grid-cols-3">
-      <div>
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="sm:col-span-2 lg:col-span-1">
         <img src={site.logo} alt="Star Flex Printers logo" class="h-12 w-auto rounded bg-paper p-1" />
         <p class="mt-3 font-display text-base text-paper/60">{site.nameHindi}</p>
         <p class="mt-4 max-w-xs text-sm leading-relaxed text-paper/60">{site.tagline}</p>
+      </div>
+
+      <div>
+        <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-accent">Pages</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/" class="hover:text-white">Home</a></li>
+          <li><a href="/services" class="hover:text-white">Services</a></li>
+          <li><a href="/gallery" class="hover:text-white">Gallery</a></li>
+          <li><a href="/contact" class="hover:text-white">Contact</a></li>
+        </ul>
       </div>
 
       <div>

@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Gallery from "../components/Gallery.astro";
+import Footer from "../components/Footer.astro";
+import StickyActionBar from "../components/StickyActionBar.astro";
+---
+
+<Layout
+  title="Our Work — Star Flex Printers, Madhubani"
+  description="Real work from Star Flex Printers — hoarding boards, name plates, wedding posters, T-shirt printing and more, done at our Madhubani shop."
+>
+  <Header />
+  <main>
+    <section class="mx-auto max-w-6xl px-4 pt-10 sm:pt-14">
+      <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">Our Work</p>
+      <h1 class="font-display text-3xl font-bold text-ink sm:text-4xl">
+        A Look at Our <span class="marker">Work</span>
+      </h1>
+      <p class="mt-3 max-w-xl text-ink/70">
+        Real work done at Star Flex Printers — banners, boards, cards and more.
+      </p>
+    </section>
+    <Gallery showHeading={false} />
+  </main>
+  <Footer />
+  <StickyActionBar />
+</Layout>

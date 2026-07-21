@@ -1,20 +1,31 @@
 ---
 import Icon from "./Icon.astro";
 import { services } from "../data/site";
+
+interface Props {
+  showHeading?: boolean;
+  limit?: number;
+  showViewAll?: boolean;
+}
+
+const { showHeading = true, limit, showViewAll = false } = Astro.props;
+const items = limit ? services.slice(0, limit) : services;
 ---
 
 <section id="services" class="mx-auto max-w-6xl px-4 py-16 sm:py-20">
-  <div class="reveal mb-10 max-w-xl">
-    <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">
-      Our Services
-    </p>
-    <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">
-      Every Kind of <span class="marker">Printing</span>, One Place
-    </h2>
-  </div>
+  {showHeading && (
+    <div class="reveal mb-10 max-w-xl">
+      <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">
+        Our Services
+      </p>
+      <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">
+        Every Kind of <span class="marker">Printing</span>, One Place
+      </h2>
+    </div>
+  )}
 
   <div class="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
-    {services.map((s, i) => (
+    {items.map((s, i) => (
       <div
         class="reveal group rounded-xl border border-stone-200 bg-white/60 p-5 transition hover:-translate-y-0.5 hover:shadow-md"
         style={`transition-delay:${(i % 4) * 60}ms`}
@@ -27,4 +38,15 @@ import { services } from "../data/site";
       </div>
     ))}
   </div>
+
+  {showViewAll && (
+    <div class="reveal mt-8 text-center">
+      <a
+        href="/services"
+        class="inline-flex items-center gap-2 rounded-lg border border-brand px-6 py-2.5 text-sm font-semibold text-brand transition hover:bg-brand hover:text-white"
+      >
+        View All Services
+      </a>
+    </div>
+  )}
 </section>

@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import LocationSection from "../components/LocationSection.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Footer from "../components/Footer.astro";
+import StickyActionBar from "../components/StickyActionBar.astro";
+---
+
+<Layout
+  title="Contact Us — Star Flex Printers, Madhubani"
+  description="Find Star Flex Printers at Bata Chowk, Madhubani, or send an enquiry — we reply on WhatsApp right away."
+>
+  <Header />
+  <main>
+    <section class="mx-auto max-w-6xl px-4 pt-10 sm:pt-14">
+      <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">Get in Touch</p>
+      <h1 class="font-display text-3xl font-bold text-ink sm:text-4xl">
+        Contact <span class="marker">Star Flex Printers</span>
+      </h1>
+    </section>
+    <LocationSection />
+    <ContactForm />
+  </main>
+  <Footer />
+  <StickyActionBar />
+</Layout>

@@ -29,14 +29,13 @@ import { site, telHref, waHref, waGreeting } from "../data/site";
 
 <script>
   const bar = document.getElementById("sticky-bar");
-  const hero = document.getElementById("top");
-  if (bar && hero) {
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        bar.classList.toggle("hidden", entry.isIntersecting);
-      },
-      { rootMargin: "-10% 0px 0px 0px" }
-    );
-    io.observe(hero);
+  const SHOW_AFTER_PX = 320;
+
+  if (bar) {
+    const update = () => {
+      bar.classList.toggle("hidden", window.scrollY < SHOW_AFTER_PX);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
   }
 </script>

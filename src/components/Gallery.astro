@@ -1,17 +1,25 @@
 ---
 import { gallery } from "../data/site";
+
+interface Props {
+  showHeading?: boolean;
+}
+
+const { showHeading = true } = Astro.props;
 ---
 
 <section id="gallery" class="halftone mx-auto max-w-6xl px-4 py-16 sm:py-20">
-  <div class="reveal mb-10 max-w-xl">
-    <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">Our Work</p>
-    <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">
-      A Look at Our <span class="marker">Work</span>
-    </h2>
-    <p class="mt-3 text-ink/70">
-      Real work done at Star Flex Printers — banners, boards, cards and more.
-    </p>
-  </div>
+  {showHeading && (
+    <div class="reveal mb-10 max-w-xl">
+      <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">Our Work</p>
+      <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">
+        A Look at Our <span class="marker">Work</span>
+      </h2>
+      <p class="mt-3 text-ink/70">
+        Real work done at Star Flex Printers — banners, boards, cards and more.
+      </p>
+    </div>
+  )}
 
   <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
     {gallery.map((item) => (

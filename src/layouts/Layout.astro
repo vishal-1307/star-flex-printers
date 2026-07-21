@@ -2,17 +2,24 @@
 import "../styles/global.css";
 import { site } from "../data/site";
 
-const title =
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const defaultTitle =
   "Star Flex Printers — Flex Banner, LED Board & All Printing Services in Madhubani";
-const description =
+const defaultDescription =
   `Flex banner, hoarding, LED board, visiting cards, wedding cards and all printing services in Madhubani. ${site.address.line}. Call or WhatsApp: ${site.phones[0]}.`;
+
+const { title = defaultTitle, description = defaultDescription } = Astro.props;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: site.name,
   alternateName: site.nameHindi,
-  description,
+  description: defaultDescription,
   email: site.email,
   telephone: `+91${site.phones[0]}`,
   address: {
@@ -26,6 +33,7 @@ const jsonLd = {
   openingHours: site.hours.schema,
   image: site.shopfront,
 };
+
 ---
 
 <!doctype html>
@@ -35,6 +43,7 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={Astro.url.pathname} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />

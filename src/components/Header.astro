@@ -3,16 +3,20 @@ import Icon from "./Icon.astro";
 import { site, telHref } from "../data/site";
 
 const navLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#gallery", label: "Gallery" },
-  { href: "#location", label: "Location" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/contact", label: "Contact" },
 ];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
 ---
 
 <header class="sticky top-0 z-50 border-b border-stone-200 bg-paper/95 backdrop-blur">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-    <a href="#top" class="flex items-center gap-2.5">
+    <a href="/" class="flex items-center gap-2.5">
       <img src={site.logo} alt="Star Flex Printers logo" class="h-10 w-auto sm:h-11" />
       <span class="font-display text-lg font-bold leading-tight text-ink sm:text-xl">
         Star Flex Printers
@@ -21,13 +25,28 @@ const navLinks = [
 
     <nav class="hidden items-center gap-6 md:flex">
       {navLinks.map((l) => (
-        <a href={l.href} class="text-sm font-medium text-ink/80 transition hover:text-brand">
+        <a
+          href={l.href}
+          aria-current={isActive(l.href) ? "page" : undefined}
+          class:list={[
+            "text-sm font-medium transition hover:text-brand",
+            isActive(l.href) ? "text-brand" : "text-ink/80",
+          ]}
+        >
           {l.label}
         </a>
       ))}
     </nav>
 
     <div class="hidden items-center gap-3 md:flex">
+      <a
+        href="/brochure.pdf"
+        download
+        class="inline-flex items-center gap-2 rounded-lg border border-stone-300 px-3 py-2 text-sm font-semibold text-ink/80 transition hover:border-brand hover:text-brand lg:px-4"
+      >
+        <Icon name="download" class="h-4 w-4" />
+        <span class="hidden lg:inline">Download Brochure</span>
+      </a>
       <a
         href={telHref(site.phones[0])}
         class="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark"
@@ -52,10 +71,25 @@ const navLinks = [
   <nav id="mobile-nav" class="hidden border-t border-stone-200 bg-paper md:hidden">
     <div class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
       {navLinks.map((l) => (
-        <a href={l.href} class="rounded-md px-2 py-2 text-sm font-medium text-ink/80 hover:bg-stone-100">
+        <a
+          href={l.href}
+          aria-current={isActive(l.href) ? "page" : undefined}
+          class:list={[
+            "rounded-md px-2 py-2 text-sm font-medium hover:bg-stone-100",
+            isActive(l.href) ? "text-brand" : "text-ink/80",
+          ]}
+        >
           {l.label}
         </a>
       ))}
+      <a
+        href="/brochure.pdf"
+        download
+        class="mt-1 inline-flex items-center justify-center gap-2 rounded-lg border border-stone-300 px-4 py-2 text-sm font-semibold text-ink/80"
+      >
+        <Icon name="download" class="h-4 w-4" />
+        Download Brochure
+      </a>
       <a
         href={telHref(site.phones[0])}
         class="mt-1 inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white"
