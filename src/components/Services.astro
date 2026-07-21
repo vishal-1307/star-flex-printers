@@ -1,5 +1,6 @@
 ---
 import ServiceCard from "./ServiceCard.astro";
+import ServiceEnquiryDrawer from "./ServiceEnquiryDrawer.astro";
 import { services } from "../data/services";
 
 interface Props {
@@ -25,20 +26,12 @@ const items = limit ? services.slice(0, limit) : services;
     </div>
   )}
 
-  <div
-    class:list={[
-      "grid gap-4 sm:gap-5",
-      enableQuery
-        ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-        : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
-    ]}
-  >
+  <div class="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
     {items.map((s, i) => (
       <ServiceCard
         name={s.name}
         icon={s.icon}
         blurb={s.blurb}
-        index={i}
         enableQuery={enableQuery}
         transitionDelay={`${(i % 4) * 60}ms`}
       />
@@ -57,71 +50,4 @@ const items = limit ? services.slice(0, limit) : services;
   )}
 </section>
 
-{enableQuery && (
-  <script>
-    import { site } from "../data/site";
-    import { normalizePhone, isValidName, isValidPhone, buildWaUrl, openWa } from "../lib/whatsapp";
-
-    const cards = document.querySelectorAll<HTMLElement>("[data-service-card]");
-
-    const closeCard = (card: HTMLElement) => {
-      card.querySelector("[data-service-panel]")?.classList.add("hidden");
-      card.querySelector("[data-service-toggle]")?.setAttribute("aria-expanded", "false");
-      card.querySelector("[data-service-chevron]")?.classList.remove("rotate-180");
-    };
-
-    cards.forEach((card) => {
-      const toggle = card.querySelector<HTMLButtonElement>("[data-service-toggle]");
-      const panel = card.querySelector<HTMLElement>("[data-service-panel]");
-      const chevron = card.querySelector("[data-service-chevron]");
-
-      toggle?.addEventListener("click", () => {
-        const wasOpen = !panel?.classList.contains("hidden");
-        cards.forEach((other) => {
-          if (other !== card) closeCard(other);
-        });
-        panel?.classList.toggle("hidden", wasOpen);
-        toggle.setAttribute("aria-expanded", String(!wasOpen));
-        chevron?.classList.toggle("rotate-180", !wasOpen);
-      });
-
-      const form = card.querySelector<HTMLFormElement>("[data-service-form]");
-      form?.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const serviceName = form.dataset.serviceName ?? "";
-        const nameEl = form.querySelector<HTMLInputElement>('[data-field="name"]')!;
-        const phoneEl = form.querySelector<HTMLInputElement>('[data-field="phone"]')!;
-        const noteEl = form.querySelector<HTMLTextAreaElement>('[data-field="note"]')!;
-        const nameError = form.querySelector('[data-error="name"]');
-        const phoneError = form.querySelector('[data-error="phone"]');
-
-        const name = nameEl.value.trim();
-        const phone = phoneEl.value.trim();
-        const note = noteEl.value.trim();
-
-        let valid = true;
-        if (!isValidName(name)) {
-          nameError?.classList.remove("hidden");
-          valid = false;
-        } else {
-          nameError?.classList.add("hidden");
-        }
-
-        if (!isValidPhone(phone)) {
-          phoneError?.classList.remove("hidden");
-          valid = false;
-        } else {
-          phoneError?.classList.add("hidden");
-        }
-
-        if (!valid) return;
-
-        let message = `Hi, I'm interested in ${serviceName}. Name: ${name}, Phone: ${normalizePhone(phone)}.`;
-        if (note) message += ` ${note}`;
-
-        openWa(buildWaUrl(site.whatsapp, [message]));
-      });
-    });
-  </script>
-)}
+{enableQuery && <ServiceEnquiryDrawer />}

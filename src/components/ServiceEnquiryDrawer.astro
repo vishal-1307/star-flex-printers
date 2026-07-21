@@ -1,0 +1,189 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<div
+  class="service-drawer-backdrop pointer-events-none fixed inset-0 z-[60] hidden bg-ink/40 backdrop-blur-sm"
+  data-drawer-backdrop
+>
+</div>
+
+<div
+  class="service-drawer pointer-events-none fixed inset-x-0 bottom-0 z-[70] hidden max-h-[80vh] rounded-t-2xl border-t border-stone-200 bg-paper shadow-xl md:inset-y-0 md:left-auto md:right-0 md:bottom-auto md:h-full md:max-h-none md:w-[420px] md:rounded-t-none md:rounded-l-2xl md:border-t-0 md:border-l"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="service-drawer-title"
+  data-drawer
+>
+  <div class="flex h-full flex-col overflow-y-auto p-6 sm:p-7">
+    <div class="mb-5 flex items-start justify-between gap-4">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wide text-accent">Quick Enquiry</p>
+        <h3 id="service-drawer-title" class="mt-1 font-display text-xl font-bold text-ink" data-drawer-service-name>
+          Service
+        </h3>
+      </div>
+      <button
+        type="button"
+        class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-stone-300 text-ink/60 transition hover:border-brand hover:text-brand"
+        aria-label="Close"
+        data-drawer-close
+      >
+        <Icon name="close" class="h-4 w-4" />
+      </button>
+    </div>
+
+    <p class="mb-5 text-sm text-ink/70">
+      Share a few details and we'll get your query straight on WhatsApp.
+    </p>
+
+    <form class="flex flex-1 flex-col space-y-4" data-drawer-form novalidate>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-ink">Name *</label>
+        <input
+          type="text"
+          required
+          data-field="name"
+          class="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
+          placeholder="Your name"
+        />
+        <p class="mt-1 hidden text-xs text-brand" data-error="name">Please enter your name.</p>
+      </div>
+
+      <div>
+        <label class="mb-1 block text-sm font-medium text-ink">Phone *</label>
+        <input
+          type="tel"
+          inputmode="numeric"
+          required
+          data-field="phone"
+          class="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
+          placeholder="10-digit mobile number"
+        />
+        <p class="mt-1 hidden text-xs text-brand" data-error="phone">Please enter a valid 10-digit number.</p>
+      </div>
+
+      <div>
+        <label class="mb-1 block text-sm font-medium text-ink">Note (optional)</label>
+        <textarea
+          rows="3"
+          data-field="note"
+          class="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
+          placeholder="Size, quantity, urgency, etc."
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-lg bg-wa px-6 text-base font-semibold text-white transition hover:bg-wa-dark"
+      >
+        <Icon name="whatsapp" class="h-5 w-5" />
+        Send Query on WhatsApp
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  import { site } from "../data/site";
+  import { normalizePhone, isValidName, isValidPhone, buildWaUrl, openWa } from "../lib/whatsapp";
+
+  const backdrop = document.querySelector<HTMLElement>("[data-drawer-backdrop]");
+  const drawer = document.querySelector<HTMLElement>("[data-drawer]");
+  const closeBtn = document.querySelector<HTMLButtonElement>("[data-drawer-close]");
+  const titleEl = document.querySelector<HTMLElement>("[data-drawer-service-name]");
+  const form = document.querySelector<HTMLFormElement>("[data-drawer-form]");
+
+  if (backdrop && drawer && closeBtn && titleEl && form) {
+    const nameEl = form.querySelector<HTMLInputElement>('[data-field="name"]')!;
+    const phoneEl = form.querySelector<HTMLInputElement>('[data-field="phone"]')!;
+    const noteEl = form.querySelector<HTMLTextAreaElement>('[data-field="note"]')!;
+    const nameError = form.querySelector('[data-error="name"]');
+    const phoneError = form.querySelector('[data-error="phone"]');
+
+    let currentServiceName = "";
+    let lastTrigger: HTMLElement | null = null;
+
+    const open = (serviceName: string, trigger: HTMLElement) => {
+      currentServiceName = serviceName;
+      lastTrigger = trigger;
+      titleEl.textContent = serviceName;
+
+      form.reset();
+      nameError?.classList.add("hidden");
+      phoneError?.classList.add("hidden");
+
+      backdrop.classList.remove("hidden");
+      drawer.classList.remove("hidden");
+      backdrop.classList.remove("pointer-events-none");
+      drawer.classList.remove("pointer-events-none");
+
+      requestAnimationFrame(() => {
+        backdrop.classList.add("is-open");
+        drawer.classList.add("is-open");
+      });
+
+      document.body.style.overflow = "hidden";
+      window.setTimeout(() => nameEl.focus(), 300);
+    };
+
+    const close = () => {
+      backdrop.classList.remove("is-open");
+      drawer.classList.remove("is-open");
+      backdrop.classList.add("pointer-events-none");
+      drawer.classList.add("pointer-events-none");
+
+      document.body.style.overflow = "";
+      lastTrigger?.focus();
+
+      window.setTimeout(() => {
+        backdrop.classList.add("hidden");
+        drawer.classList.add("hidden");
+      }, 300);
+    };
+
+    document.querySelectorAll<HTMLElement>("[data-service-trigger]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const serviceName = trigger.dataset.serviceName ?? "";
+        open(serviceName, trigger);
+      });
+    });
+
+    closeBtn.addEventListener("click", close);
+    backdrop.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !drawer.classList.contains("hidden")) close();
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = nameEl.value.trim();
+      const phone = phoneEl.value.trim();
+      const note = noteEl.value.trim();
+
+      let valid = true;
+      if (!isValidName(name)) {
+        nameError?.classList.remove("hidden");
+        valid = false;
+      } else {
+        nameError?.classList.add("hidden");
+      }
+
+      if (!isValidPhone(phone)) {
+        phoneError?.classList.remove("hidden");
+        valid = false;
+      } else {
+        phoneError?.classList.add("hidden");
+      }
+
+      if (!valid) return;
+
+      let message = `Hi, I'm interested in ${currentServiceName}. Name: ${name}, Phone: ${normalizePhone(phone)}.`;
+      if (note) message += ` ${note}`;
+
+      openWa(buildWaUrl(site.whatsapp, [message]));
+      close();
+    });
+  }
+</script>

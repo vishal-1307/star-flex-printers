@@ -106,3 +106,35 @@ section[id] {
     transition: none;
   }
 }
+
+/* Service enquiry drawer: bottom sheet on mobile, side panel on desktop */
+.service-drawer {
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+.service-drawer.is-open {
+  transform: translateY(0);
+}
+@media (min-width: 768px) {
+  .service-drawer {
+    transform: translateX(100%);
+  }
+  .service-drawer.is-open {
+    transform: translateX(0);
+  }
+}
+
+.service-drawer-backdrop {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.service-drawer-backdrop.is-open {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-drawer,
+  .service-drawer-backdrop {
+    transition: none;
+  }
+}
