@@ -29,6 +29,7 @@ const items = limit ? services.slice(0, limit) : services;
     {items.map((s, i) => (
       <ServiceCard
         name={s.name}
+        slug={s.slug}
         icon={s.icon}
         blurb={s.blurb}
         enableQuery={enableQuery}
